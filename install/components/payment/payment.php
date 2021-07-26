@@ -97,7 +97,7 @@ $arrRequest['pg_sig'] = PayBoxSignature::make('payment.php', $arrRequest, $strSe
 /*
  * PayBox Request
  */
-print "<form name=\"payment\" method='".$strRequestMethod."' action='https://paybox.kz/payment.php'";
+print "<form name=\"payment\" method='".$strRequestMethod."' action='https://api.paybox.money/payment.php'";
 foreach($arrRequest as $key => $value) {
     print "<label for=''>				<input type='hidden' name='".$key."' value='".$value."' />			</label>";
 }
