@@ -57,7 +57,7 @@ Class paybox_pay extends CModule
 
 	function InstallFiles()
 	{
-		CopyDirFiles($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/paybox.pay/install/components/payment/", $_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/sale/payment/paybox/", true, true);
+		CopyDirFiles($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/paybox.pay/install/components/payment/", $_SERVER["DOCUMENT_ROOT"]."/bitrix/php_interface/include/sale_payment/paybox/", true, true);
 		CopyDirFiles($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/paybox.pay/install/components/index/", $_SERVER["DOCUMENT_ROOT"]."/paybox/",	true, true);
 		return true;
 	}
@@ -68,9 +68,9 @@ Class paybox_pay extends CModule
 
 	function UnInstallFiles()
 	{
-		DeleteDirFiles($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/paybox.pay/install/components/payment/en/", $_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/sale/payment/paybox/en/");
-		DeleteDirFiles($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/paybox.pay/install/components/payment/ru/", $_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/sale/payment/paybox/ru/");
-		DeleteDirFiles($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/paybox.pay/install/components/payment/", $_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/sale/payment/paybox/");
+		DeleteDirFiles($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/paybox.pay/install/components/payment/en/", $_SERVER["DOCUMENT_ROOT"]."/bitrix/php_interface/include/sale_payment/paybox/en/");
+		DeleteDirFiles($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/paybox.pay/install/components/payment/ru/", $_SERVER["DOCUMENT_ROOT"]."/bitrix/php_interface/include/sale_payment/paybox/ru/");
+		DeleteDirFiles($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/paybox.pay/install/components/payment/", $_SERVER["DOCUMENT_ROOT"]."/bitrix/php_interface/include/sale_payment/paybox/");
 		DeleteDirFiles($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/paybox.pay/install/components/index/", $_SERVER["DOCUMENT_ROOT"]."/paybox/");
 		return true;
 	}
