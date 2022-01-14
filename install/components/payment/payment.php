@@ -47,7 +47,9 @@ $nAmount = $order->getPrice();
 $nMerchantId = CSalePaySystemAction::GetParamValue("MERCHANT_ID");
 $strSecretKey = CSalePaySystemAction::GetParamValue("SECRET_KEY");
 $bTestingMode = CSalePaySystemAction::GetParamValue("TESTING_MODE") == "Y"? 1 : 0;
+$taxType = CSalePaySystemAction::GetParamValue("TAX_TYPE");
 $nOrderId = $order->getId();
+
 $nPSId = $order->getPaySystemIdList()[0];
 
 $strStatusPaid = CSalePaySystemAction::GetParamValue("STATUS_PAID");
@@ -64,9 +66,18 @@ $arrRequest['pg_amount']      = $nAmount;
 $arrRequest['pg_currency'] = $order->getCurrency();
 
 $basketList = CSaleBasket::GetList(array(), array("ORDER_ID" => $nOrderId));
-$arrItems = array();
+$arrItems = [];
+$pgReceiptPositions = [];
+
 while ($arrItem = $basketList->Fetch()) {
     $arrItems[] = $arrItem['NAME'].', ';
+
+    $pgReceiptPositions[] = [
+        'count' => $arrItem['QUANTITY'],
+        'name' => $arrItem['NAME'],
+        'tax_type' => $taxType,
+        'price' => $arrItem['PRICE'],
+    ];
 }
 
 $arrRequest['pg_description'] = 'Order ID: '.$nOrderId;
@@ -86,6 +97,9 @@ $arrRequest['pg_failure_url_method']	= 'AUTOPOST';
 $arrRequest['STATUS_PAID'] = $strStatusPaid;
 $arrRequest['STATUS_FAILED'] = $strStatusFailed;
 $arrRequest['STATUS_REVOKED'] = $strStatusRevoked;
+$arrRequest['pg_receipt_positions'] =  $pgReceiptPositions;
+
+
 
 if($bTestingMode)
     $arrRequest['pg_testing_mode']	= '1';
