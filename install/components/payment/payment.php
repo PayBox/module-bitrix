@@ -98,6 +98,7 @@ $arrRequest['STATUS_PAID'] = $strStatusPaid;
 $arrRequest['STATUS_FAILED'] = $strStatusFailed;
 $arrRequest['STATUS_REVOKED'] = $strStatusRevoked;
 $arrRequest['pg_receipt_positions'] =  $pgReceiptPositions;
+$arrRequest['pg_timeout_after_payment'] = 3600;
 
 
 
@@ -113,8 +114,18 @@ $arrRequest['pg_sig'] = PayBoxSignature::make('payment.php', $arrRequest, $strSe
  */
 print "<form name=\"payment\" method='".$strRequestMethod."' action='https://api.paybox.money/payment.php'";
 foreach($arrRequest as $key => $value) {
-    print "<label for=''>				<input type='hidden' name='".$key."' value='".$value."' />			</label>";
+
+    if ($key === 'pg_receipt_positions') {
+        foreach ($value as $itemPos =>  $item) {
+            foreach ($item  as $pgkey => $pgvalue) {
+                print "<label for=''><input type='hidden' name='" . $key . "[" .$itemPos ."][" . $pgkey . "]' value='" . $pgvalue . "' /></label>";
+            }
+        }
+    } else {
+        print "<label for=''><input type='hidden' name='" . $key . "' value='" . $value . "' />			</label>";
+    }
 }
+
 
 print "<input type=\"submit\"></form>";
 ?>
