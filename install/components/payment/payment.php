@@ -41,7 +41,13 @@ if(!PayBoxIO::emailIsValid($strCustomerEmail)){
     exit();
 }
 
-$order = \Bitrix\Sale\Order::load($_GET['ORDER_ID']);
+$orderId = $_GET['ORDER_ID'];
+
+if (!$orderId && !empty($GLOBALS["SALE_INPUT_PARAMS"]["ORDER"]["ID"])) {
+    $orderId = $GLOBALS["SALE_INPUT_PARAMS"]["ORDER"]["ID"];
+}
+
+$order = \Bitrix\Sale\Order::load($orderId);
 
 $nAmount = $order->getPrice();
 $nMerchantId = CSalePaySystemAction::GetParamValue("MERCHANT_ID");
