@@ -34,7 +34,7 @@ if(!PayBoxSignature::check($arrRequest['pg_sig'], $strScriptName, $arrRequest, $
 	PayBoxIO::makeResponse($strScriptName, $strSecretKey, 'error',
 		'signature is not valid', $strSalt);
 
-$strStatusRevoked = $arrRequest['STATUS_REVOKED'];
+$strStatusRevoked = $arrShopParams['STATUS_REVOKED']['VALUE'];
 
 CSaleOrder::Update($nOrderId, array(
 			'STATUS_ID' => $strStatusRevoked,

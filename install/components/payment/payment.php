@@ -61,10 +61,6 @@ $taxType = CSalePaySystemAction::GetParamValue("TAX_TYPE");
 
 $nPSId = $order->getPaySystemIdList()[0];
 
-$strStatusPaid = CSalePaySystemAction::GetParamValue("STATUS_PAID");
-$strStatusFailed = CSalePaySystemAction::GetParamValue("STATUS_FAILED");
-$strStatusRevoked = CSalePaySystemAction::GetParamValue("STATUS_REVOKED");
-
 $nAmount = number_format($nAmount, 2, '.', '');
 
 $arrRequest['pg_salt'] = uniqid();
@@ -103,9 +99,6 @@ $arrRequest['pg_refund_url']   = "https://".$_SERVER['HTTP_HOST']."/paybox/refun
 $arrRequest['pg_success_url_method']	= 'AUTOPOST';
 $arrRequest['pg_failure_url']   = "https://".$_SERVER['HTTP_HOST']."/paybox/failure.php?PAYMENT_SYSTEM=$nPSId";
 $arrRequest['pg_failure_url_method']	= 'AUTOPOST';
-$arrRequest['STATUS_PAID'] = $strStatusPaid;
-$arrRequest['STATUS_FAILED'] = $strStatusFailed;
-$arrRequest['STATUS_REVOKED'] = $strStatusRevoked;
 $arrRequest['pg_receipt_positions'] =  $pgReceiptPositions;
 $arrRequest['pg_timeout_after_payment'] = 3600;
 

@@ -27,8 +27,8 @@ $strSalt = $arrRequest["pg_salt"];
 $nOrderAmount = $arrRequest["pg_amount"];
 $nOrderId = intval($arrRequest["pg_order_id"]);
 
-$strStatusPaid = $arrRequest["STATUS_PAID"];
-$strStatusFailed = $arrRequest["STATUS_FAILED"];
+$strStatusPaid = $arrShopParams['STATUS_PAID']['VALUE'];
+$strStatusFailed = $arrShopParams['STATUS_FAILED']['VALUE'];
 
 if ($arrShopParams['ORDER_ID_TYPE']['VALUE'] === 'ORDER_NUMBER') {
     $nOrderId = \Bitrix\Sale\Order::loadByAccountNumber($arrRequest['pg_order_id'])->getId();
