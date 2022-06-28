@@ -78,5 +78,20 @@ $arPSCorrespondence = array(
 		"TYPE" => "",
 		'GROUP' => 'GENERAL_SETTINGS',
 	),
+	'ORDER_ID_TYPE'  => array(
+		'NAME' => GetMessage("SHOP_TAX_TYPE"),
+		"DESCR" => GetMessage("SHOP_TAX_TYPE_DESCR"),
+		'SORT' => 900,
+		'VALUE' => array(
+			'ORDER_ID' => array(
+				'NAME' => GetMessage("SHOP_TAX_TYPE_ORDER_ID")
+			),
+			'ORDER_NUMBER' => array(
+				'NAME' => GetMessage("SHOP_TAX_TYPE_ORDER_NUMBER")
+			)
+		),
+		'TYPE' => 'SELECT',
+		'GROUP' => 'GENERAL_SETTINGS',
+	),
 )
 ?>

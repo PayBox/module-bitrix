@@ -19,7 +19,13 @@ else
 
 $strSecretKey = $arrShopParams['SECRET_KEY']['VALUE'];
 
-$nOrderId = intval(isset( $_REQUEST["pg_order_id"] ) ? $_REQUEST["pg_order_id"] : 0 );
+$pgOrderId = isset( $_REQUEST["pg_order_id"] ) ? $_REQUEST["pg_order_id"] : 0;
+
+if ($arrShopParams['ORDER_ID_TYPE']['VALUE'] === 'ORDER_NUMBER') {
+    $nOrderId = \Bitrix\Sale\Order::loadByAccountNumber($pgOrderId)->getId();
+} else {
+    $nOrderId = intval($pgOrderId);
+}
 
 $bPay = isset($_GET['pay'])?$_GET['pay']:'n';
 COption::SetOptionString("paybox.pay","pay",$bPay);

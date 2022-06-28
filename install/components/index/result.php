@@ -30,6 +30,12 @@ $nOrderId = intval($arrRequest["pg_order_id"]);
 $strStatusPaid = $arrRequest["STATUS_PAID"];
 $strStatusFailed = $arrRequest["STATUS_FAILED"];
 
+if ($arrShopParams['ORDER_ID_TYPE']['VALUE'] === 'ORDER_NUMBER') {
+    $nOrderId = \Bitrix\Sale\Order::loadByAccountNumber($arrRequest['pg_order_id'])->getId();
+} else {
+    $nOrderId = intval($arrRequest['pg_order_id']);
+}
+
 /*
  * Signature
  */

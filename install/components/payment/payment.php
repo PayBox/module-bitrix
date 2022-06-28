@@ -47,14 +47,17 @@ if (!$orderId && !empty($GLOBALS["SALE_INPUT_PARAMS"]["ORDER"]["ID"])) {
     $orderId = $GLOBALS["SALE_INPUT_PARAMS"]["ORDER"]["ID"];
 }
 
-$order = \Bitrix\Sale\Order::load($orderId);
+if (CSalePaySystemAction::GetParamValue('ORDER_ID_TYPE') === 'ORDER_NUMBER') {
+    $order = \Bitrix\Sale\Order::loadByAccountNumber($orderId);
+} else {
+    $order = \Bitrix\Sale\Order::load($orderId);
+}
 
 $nAmount = $order->getPrice();
 $nMerchantId = CSalePaySystemAction::GetParamValue("MERCHANT_ID");
 $strSecretKey = CSalePaySystemAction::GetParamValue("SECRET_KEY");
 $bTestingMode = CSalePaySystemAction::GetParamValue("TESTING_MODE") == "Y"? 1 : 0;
 $taxType = CSalePaySystemAction::GetParamValue("TAX_TYPE");
-$nOrderId = $order->getId();
 
 $nPSId = $order->getPaySystemIdList()[0];
 
@@ -66,12 +69,12 @@ $nAmount = number_format($nAmount, 2, '.', '');
 
 $arrRequest['pg_salt'] = uniqid();
 $arrRequest['pg_merchant_id'] = $nMerchantId;
-$arrRequest['pg_order_id']    = $nOrderId;
+$arrRequest['pg_order_id']    = $orderId;
 $arrRequest['pg_lifetime']    = 3600*24;
 $arrRequest['pg_amount']      = $nAmount;
 $arrRequest['pg_currency'] = $order->getCurrency();
 
-$basketList = CSaleBasket::GetList(array(), array("ORDER_ID" => $nOrderId));
+$basketList = CSaleBasket::GetList(array(), array("ORDER_ID" => $order->getId()));
 $arrItems = [];
 $pgReceiptPositions = [];
 
@@ -86,7 +89,7 @@ while ($arrItem = $basketList->Fetch()) {
     ];
 }
 
-$arrRequest['pg_description'] = 'Order ID: '.$nOrderId;
+$arrRequest['pg_description'] = 'Order ID: '. $orderId;
 $arrRequest['pg_user_phone'] = $strCustomerPhone;
 $arrRequest['pg_user_contact_email'] = $strCustomerEmail;
 $arrRequest['pg_user_email'] = $strCustomerEmail;

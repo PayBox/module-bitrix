@@ -22,7 +22,12 @@ $strSecretKey = $arrShopParams['SECRET_KEY']['VALUE'];
 $strSalt = $arrRequest["pg_salt"];
 
 $nOrderAmount = $arrRequest["pg_amount"];
-$nOrderId = intval($arrRequest["pg_order_id"]);
+
+if ($arrShopParams['ORDER_ID_TYPE']['VALUE'] === 'ORDER_NUMBER') {
+    $nOrderId = \Bitrix\Sale\Order::loadByAccountNumber($arrRequest['pg_order_id'])->getId();
+} else {
+    $nOrderId = intval($arrRequest['pg_order_id']);
+}
 
 /*
  * Signature check

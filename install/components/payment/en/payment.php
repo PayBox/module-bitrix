@@ -31,4 +31,9 @@ $MESS["PAYMENT_SUCCESS_MESSAGE"] = "Ваш заказ успешно оплач�
 
 $MESS["SHOP_TAX_TYPE"] = "Тип налога.";
 $MESS["SHOP_TAX_TYPE_DESCR"] = "Тип налога. (Пример 3)";
+
+$MESS["SHOP_ORDER_ID_TYPE"] = "Тип идентификатора заказа.";
+$MESS["SHOP_ORDER_ID_TYPE_DESCR"] = "";
+$MESS["SHOP_TAX_TYPE_ORDER_ID"] = "Id заказа";
+$MESS["SHOP_TAX_TYPE_ORDER_NUMBER"] = "Номер заказа";
 ?>
