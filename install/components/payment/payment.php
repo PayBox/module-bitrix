@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && trim($_POST["SET_NEW_USER_DATA"])!="
         $strCustomerPhone = $_POST["NEW_PHONE"];
 }
 
-if(!PayBoxIO::emailIsValid($strCustomerEmail)){
+if(!empty($strCustomerEmail) && !PayBoxIO::emailIsValid($strCustomerEmail)){
     echo "
 			<form method=\"POST\" action=\"".POST_FORM_ACTION_URI."\">
 			<p><font color=\"Red\">$newEmail</font></p>
