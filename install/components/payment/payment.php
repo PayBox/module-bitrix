@@ -1,6 +1,8 @@
 <?php
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 
+global $USER;
+
 include(GetLangFileName(dirname(__FILE__)."/", "/payment.php"));
 
 CModule::IncludeModule("sale");
@@ -13,7 +15,19 @@ $useNewEmail = GetMessage("USE_NEW_EMAIL");
 $arrRequestMethods = array("POST", "GET");
 $arrUserRedirectMethods = array("POST", "GET", "AUTOPOST", "AUTOGET");
 
+$orderId = $_GET['ORDER_ID'];
+
+if (!$orderId && !empty($GLOBALS["SALE_INPUT_PARAMS"]["ORDER"]["ID"])) {
+    $orderId = $GLOBALS["SALE_INPUT_PARAMS"]["ORDER"]["ID"];
+}
+
+$order = \Bitrix\Sale\Order::load($orderId);
+
 $userID = $USER->GetID();
+
+if (!$userID)
+    $userID = $order->getUserId();
+
 $rsUser = CUser::GetByID($userID);
 $arrUser = $rsUser->Fetch();
 
@@ -40,14 +54,6 @@ if(!PayBoxIO::emailIsValid($strCustomerEmail)){
 	</form>";
     exit();
 }
-
-$orderId = $_GET['ORDER_ID'];
-
-if (!$orderId && !empty($GLOBALS["SALE_INPUT_PARAMS"]["ORDER"]["ID"])) {
-    $orderId = $GLOBALS["SALE_INPUT_PARAMS"]["ORDER"]["ID"];
-}
-
-$order = \Bitrix\Sale\Order::load($orderId);
 
 $nAmount = $order->getPrice();
 $nMerchantId = CSalePaySystemAction::GetParamValue("MERCHANT_ID");
