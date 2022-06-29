@@ -37,10 +37,10 @@ unset($_GET['pay']);
  */
 
 if(!PayBoxSignature::check($arrRequest['pg_sig'], $strScriptName, $arrRequest, $strSecretKey))
-    print("Signature is not valid.");
+    print("<div class\"alert alert-danger\">Signature is not valid.</div>");
 else
     if ($nOrderId != 0){
-        print(GetMessage("PAYMENT_SUCCESS_MESSAGE"));
+        print("<div class\"alert alert-success\">" . GetMessage("PAYMENT_SUCCESS_MESSAGE") . "</div>"); 
         $APPLICATION->IncludeComponent(
             "bitrix:sale.personal.order.detail",
             "",

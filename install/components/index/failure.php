@@ -2,7 +2,7 @@
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 CModule::IncludeModule("sale");
 CModule::IncludeModule("paybox.pay");
-$APPLICATION->SetTitle("????? ? ??????");
+$APPLICATION->SetTitle(GetMessage("PAYMENT_FAILURE_TITLE"));
 
 $strScriptName = PayBoxSignature::getOurScriptName();
 $arrRequest = PayBoxIO::getRequest();
@@ -36,11 +36,11 @@ unset($_GET['pay']);
  */
 
 if(!PayBoxSignature::check($arrRequest['pg_sig'], $strScriptName, $arrRequest, $strSecretKey) )
-    print("Signature is not valid.");
+    print("<div class\"alert alert-danger\">Signature is not valid.</div>");
 else
 	if ($nOrderId != 0){
-		print("????? ? ??????");
-		print(" <a href='".$_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']."&pay=y'>?????????? ???????? ??? ???.</a>");
+		print("<div class\"alert alert-danger\">" . GetMessage("PAYMENT_FAILURE_MESSAGE") . "</div>");
+		print("<a href='" . $_SERVER['PHP_SELF'] . "?" . $_SERVER['QUERY_STRING'] . "&pay=y'>" . GetMessage("PAYMENT_FAILURE_LINK") . "</a>");
   
 		$APPLICATION->IncludeComponent(
 			"bitrix:sale.personal.order.detail",

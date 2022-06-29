@@ -29,6 +29,10 @@ $MESS["USE_NEW_EMAIL"] = "e-mail";
 $MESS["PAYMENT_SUCCESS_TITLE"] = "Успешная оплата";
 $MESS["PAYMENT_SUCCESS_MESSAGE"] = "Ваш заказ успешно оплачен";
 
+$MESS["PAYMENT_FAILURE_TITLE"] = "Отказ в оплате";
+$MESS["PAYMENT_FAILURE_MESSAGE"] = "Отказ в оплате";
+$MESS["PAYMENT_FAILURE_LINK"] = "Попытаться оплатить еще раз.";
+
 $MESS["SHOP_TAX_TYPE"] = "Тип налога.";
 $MESS["SHOP_TAX_TYPE_DESCR"] = "Тип налога. (Пример 3)";
 
