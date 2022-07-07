@@ -41,6 +41,10 @@ if(!empty($strCustomerEmail) && !PayBoxIO::emailIsValid($strCustomerEmail)){
     exit();
 }
 
+if (isset($GLOBALS['SALE_INPUT_PARAMS']['PROPERTY']['EMAIL'])) {
+	$strCustomerEmail = $GLOBALS['SALE_INPUT_PARAMS']['PROPERTY']['EMAIL'];
+}
+
 $orderId = $_GET['ORDER_ID'];
 
 if (!$orderId && !empty($GLOBALS["SALE_INPUT_PARAMS"]["ORDER"]["ID"])) {
