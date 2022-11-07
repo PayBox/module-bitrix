@@ -98,10 +98,6 @@ else{
         PayBoxIO::makeResponse($strScriptName, $strSecretKey, "error",
             "Order alredy paid", $strSalt);
 
-    if(!CSaleOrder::CancelOrder($nOrderId, "Y", !empty($arrRequest['pg_failure_description'])? $arrRequest['pg_failure_description'] : ''))
-        PayBoxIO::makeResponse($strScriptName, $strSecretKey, "error",
-            "Order can\'t be cancel", $strSalt);
-
     CSaleOrder::Update($nOrderId, array(
         'STATUS_ID' => $strStatusFailed,
         'PS_STATUS' => $strStatusFailed,
@@ -112,5 +108,5 @@ else{
     ));
 
     PayBoxIO::makeResponse($strScriptName, $strSecretKey, "ok",
-        "Order cancel", $strSalt);
+        "Payment failed", $strSalt);
 }
